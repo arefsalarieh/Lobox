@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import "../styles/multi-select.scss";
 import { MultiSelectContext } from "../context/multiSelectContext";
+import type { Option } from "../../types/type";
 
 interface MultiSelectProps {
-  options: string[];
-  isOpen: Boolean;
+  options: Option[];
+  isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }
 
@@ -15,12 +16,12 @@ const MultiSelect: React.FC<MultiSelectProps> = ({}) => {
     wrapperRef,
     initialOptions,
     isOpen,
-    handleClickOutside
+    handleClickOutside,
+    handleDeleteOption,
   } = useContext(MultiSelectContext);
 
   useEffect(() => {
-    const handleClick = (e: MouseEvent) =>
-      handleClickOutside(e); //
+    const handleClick = (e: MouseEvent) => handleClickOutside(e);
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
@@ -31,21 +32,23 @@ const MultiSelect: React.FC<MultiSelectProps> = ({}) => {
         <div className="multi-select__dropdown">
           {initialOptions.map((option) => (
             <div
-              key={option}
+              key={option.id}
               className={`multi-select__option ${
-                selected.includes(option) ? "selected" : ""
+                selected.includes(option.name) ? "selected" : ""
               }`}
-              onClick={() => toggleOption(option)}
+              onClick={() => toggleOption(option.name)}
             >
-              <span>{option}</span>
-              {selected.includes(option) && (
+              <span>{option.name}</span>
+              {selected.includes(option.name) && (
                 <span className="multi-select__check">✓</span>
               )}
+              <span className="multi-select__dropdown__delete" onClick={() => handleDeleteOption(option.id)}>
+                ×
+              </span>
             </div>
           ))}
         </div>
       )}
-
     </div>
   );
 };

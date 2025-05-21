@@ -48,6 +48,7 @@
       @include m.flex-center;
       padding: v.$spacing-unit;
       cursor: pointer;
+      position: relative;
 
       &.selected {
         background-color: v.$selected-bg;
@@ -60,6 +61,18 @@
 
       &:hover {
         background-color: lighten(v.$selected-bg, 10%);
+      }
+    }
+
+    &__delete {
+      position: absolute;
+      right: v.$spacing-unit;
+      color: #ff4444;
+      font-weight: bold;
+      cursor: pointer;
+      
+      &:hover {
+        color: darken(#ff4444, 10%);
       }
     }
 

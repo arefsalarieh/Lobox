@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import { handleInputKeyDown } from "../../utils/handleInputKeyDown";
 import { MultiSelectContext } from "../context/multiSelectContext";
 
 interface InputProps {
