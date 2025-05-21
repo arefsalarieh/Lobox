@@ -1,21 +1,9 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { MultiSelectContext } from "../context/multiSelectContext";
 
-interface InputProps {
-  options: string[];
-  setInitialOptions: (options: string[]) => void;
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
-}
-
-const Input: React.FC<InputProps> = ({}) => {
-  const {
-    isOpen,
-    setIsOpen,
-    inputValue,
-    setInputValue,
-    handleInputKeyDown,
-  } = useContext(MultiSelectContext);
+const Input = ({}) => {
+  const { isOpen, setIsOpen, inputValue, setInputValue, handleInputKeyDown } =
+    useContext(MultiSelectContext);
 
   return (
     <div className="multi-select__input" onClick={() => setIsOpen(!isOpen)}>

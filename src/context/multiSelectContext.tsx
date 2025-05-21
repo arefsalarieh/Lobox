@@ -1,7 +1,7 @@
 import { createContext, useState, useRef } from "react";
 import type { ReactNode } from "react";
 import { v4 as uuidv4 } from "uuid";
-import type { Option } from "../../types/type";
+import type { Option } from "../types/type";
 
 interface MultiSelectContextType {
   initialOptions: Option[];

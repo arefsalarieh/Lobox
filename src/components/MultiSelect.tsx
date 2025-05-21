@@ -1,15 +1,8 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import { useEffect, useContext } from "react";
 import "../styles/multi-select.scss";
 import { MultiSelectContext } from "../context/multiSelectContext";
-import type { Option } from "../../types/type";
 
-interface MultiSelectProps {
-  options: Option[];
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
-}
-
-const MultiSelect: React.FC<MultiSelectProps> = ({}) => {
+const MultiSelect = ({}) => {
   const {
     selected,
     toggleOption,
@@ -42,7 +35,10 @@ const MultiSelect: React.FC<MultiSelectProps> = ({}) => {
               {selected.includes(option.name) && (
                 <span className="multi-select__check">✓</span>
               )}
-              <span className="multi-select__dropdown__delete" onClick={() => handleDeleteOption(option.id)}>
+              <span
+                className="multi-select__dropdown__delete"
+                onClick={() => handleDeleteOption(option.id)}
+              >
                 ×
               </span>
             </div>
