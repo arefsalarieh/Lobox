@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import "../styles/multi-select.scss";
-import { handleClickOutside } from "../../utils/handleClickOutside";
-import { toggleOption } from "../../utils/toggleOption";
+import { MultiSelectContext } from "../context/multiSelectContext";
 
 interface MultiSelectProps {
   options: string[];
@@ -9,17 +8,19 @@ interface MultiSelectProps {
   setIsOpen: (isOpen: boolean) => void;
 }
 
-const MultiSelect: React.FC<MultiSelectProps> = ({
-  options = [],
-  isOpen,
-  setIsOpen,
-}) => {
-  const [selected, setSelected] = useState<string[]>([]);
-  const wrapperRef = useRef<HTMLDivElement>(null);
+const MultiSelect: React.FC<MultiSelectProps> = ({}) => {
+  const {
+    selected,
+    toggleOption,
+    wrapperRef,
+    initialOptions,
+    isOpen,
+    handleClickOutside
+  } = useContext(MultiSelectContext);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) =>
-      handleClickOutside(e, wrapperRef!, setIsOpen);
+      handleClickOutside(e); //
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
@@ -28,13 +29,13 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
     <div ref={wrapperRef}>
       {isOpen && (
         <div className="multi-select__dropdown">
-          {options.map((option) => (
+          {initialOptions.map((option) => (
             <div
               key={option}
               className={`multi-select__option ${
                 selected.includes(option) ? "selected" : ""
               }`}
-              onClick={() => toggleOption(option, selected, setSelected)}
+              onClick={() => toggleOption(option)}
             >
               <span>{option}</span>
               {selected.includes(option) && (
@@ -42,37 +43,9 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
               )}
             </div>
           ))}
-          {/* {inputValue && !options.includes(inputValue) && (
-            <div
-              className="multi-select__option new-option"
-              onClick={() => {
-                if (!selected.includes(inputValue.trim())) {
-                  setSelected([...selected, inputValue.trim()]);
-                  if (onChange) onChange([...selected, inputValue.trim()]);
-                  setInputValue("");
-                }
-              }}
-            >
-              Add "{inputValue}"
-            </div>
-          )} */}
         </div>
       )}
-      {/* {selected.length > 0 && (
-        <div className="multi-select__selected">
-          {selected.map((item) => (
-            <span key={item} className="multi-select__tag">
-              {item}{" "}
-              <span
-                className="multi-select__remove"
-                onClick={() => toggleOption(item)}
-              >
-                ×
-              </span>
-            </span>
-          ))}
-        </div>
-      )} */}
+
     </div>
   );
 };
