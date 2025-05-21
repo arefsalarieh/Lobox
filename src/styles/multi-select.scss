@@ -1,0 +1,94 @@
+@use "variables" as v;
+@use "mixins" as m;
+
+.multi-select {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+
+  &__input {
+    @include m.flex-center;
+    padding: v.$spacing-unit;
+    border: 1px solid v.$secondary-color;
+    border-radius: v.$border-radius;
+    background-color: v.$dropdown-bg;
+    cursor: pointer;
+
+    input {
+      border: none;
+      outline: none;
+      flex: 1;
+      font-family: v.$font-stack;
+      background: transparent;
+
+      &:focus {
+        border-color: v.$primary-color;
+      }
+    }
+
+    &__arrow {
+      font-size: 12px;
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: v.$spacing-unit;
+    border: 1px solid v.$secondary-color;
+    border-radius: v.$border-radius;
+    background-color: v.$dropdown-bg;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+
+    &__option {
+      @include m.flex-center;
+      padding: v.$spacing-unit;
+      cursor: pointer;
+
+      &.selected {
+        background-color: v.$selected-bg;
+      }
+
+      &.new-option {
+        color: v.$primary-color;
+        font-style: italic;
+      }
+
+      &:hover {
+        background-color: lighten(v.$selected-bg, 10%);
+      }
+    }
+
+    &__check {
+      margin-left: v.$spacing-unit;
+    }
+  }
+
+  &__selected {
+    margin-top: v.$spacing-unit;
+    display: flex;
+    gap: v.$spacing-unit;
+    flex-wrap: wrap;
+
+    &__tag {
+      @include m.flex-center;
+      padding: v.$spacing-unit / 2 v.$spacing-unit;
+      background-color: v.$selected-bg;
+      border-radius: v.$border-radius;
+
+      &__remove {
+        margin-left: v.$spacing-unit;
+        cursor: pointer;
+        font-weight: bold;
+
+        &:hover {
+          color: v.$primary-color;
+        }
+      }
+    }
+  }
+}

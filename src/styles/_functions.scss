@@ -1,0 +1,7 @@
+@function spacing($multiplier: 1) {
+  @return $spacing-unit * $multiplier;
+}
+
+@function lighten-color($color, $percentage) {
+  @return lighten($color, $percentage);
+}
